@@ -13,17 +13,14 @@ public class YAMLreader implements Reader {
 
     @Override
     public List<Reactor> read(File file) throws IOException {
-         YAMLMapper yamlMapper = new YAMLMapper();
+        YAMLMapper yamlMapper = new YAMLMapper();
         Map<String, Reactor> reactorMap = yamlMapper.readValue(file,
-                new TypeReference<Map<String,Reactor>>(){});
+                new TypeReference<Map<String, Reactor>>() {
+        });
         List<Reactor> reactorlist = new ArrayList<>(reactorMap.values());
-        for(Reactor reactor:reactorlist ){
-           reactor.setSource("YAML");
+        for (Reactor reactor : reactorlist) {
+            reactor.setSource("YAML");
         }
         return reactorlist;
-        
-      
-
     }
-
 }

@@ -16,11 +16,11 @@ public class JSONhandler extends BaseHandler {
     public void handleRequest(File file) throws IOException, MyException {
         if (file.getAbsolutePath().endsWith(".json")) {
             JSONreader jsonReader = new JSONreader();
-            storage.getReactors().put(file.getName(),  jsonReader.read(file));
-        }else{          
-            if(next != null){
+            storage.getReactors().put(file.getName(), jsonReader.read(file));
+        } else {
+            if (next != null) {
                 next.handleRequest(file);
-            }else{
+            } else {
                 throw new MyException("Не подходящий формат файла");
             }
         }

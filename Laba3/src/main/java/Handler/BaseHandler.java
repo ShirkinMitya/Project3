@@ -15,5 +15,4 @@ public abstract class BaseHandler implements Handler {
     public void setNext(Handler next) {
         this.next = next;
     }
-
 }

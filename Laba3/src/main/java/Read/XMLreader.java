@@ -14,11 +14,9 @@ public class XMLreader implements Reader {
         XmlMapper xmlMapper = new XmlMapper();
         List<Reactor> reactorlist = xmlMapper.readValue(file,
                 xmlMapper.getTypeFactory().constructCollectionType(List.class, Reactor.class));
-        for(Reactor reactor: reactorlist){
-           reactor.setSource("XML");
+        for (Reactor reactor : reactorlist) {
+            reactor.setSource("XML");
         }
         return reactorlist;
-
     }
-
 }
