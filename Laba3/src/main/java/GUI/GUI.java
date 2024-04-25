@@ -42,6 +42,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        TreeStucture.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         ScrollPane.setViewportView(TreeStucture);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

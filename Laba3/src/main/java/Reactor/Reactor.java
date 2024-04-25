@@ -15,6 +15,19 @@ public class Reactor {
     private Float first_load;
     private String source;
 
+    public MutableTreeNode reactoreNode() {
+        DefaultMutableTreeNode generalnode = new DefaultMutableTreeNode(name);
+        generalnode.add(new DefaultMutableTreeNode("burnup: " + burnup));
+        generalnode.add(new DefaultMutableTreeNode("kpd: " + kpd));
+        generalnode.add(new DefaultMutableTreeNode("enrichment" + enrichment));
+        generalnode.add(new DefaultMutableTreeNode("terminal capacity: " + termal_capacity));
+        generalnode.add(new DefaultMutableTreeNode("electric capacity: " + electrical_capacity));
+        generalnode.add(new DefaultMutableTreeNode("life time: " + life_time));
+        generalnode.add(new DefaultMutableTreeNode("first load: " + first_load));
+        generalnode.add(new DefaultMutableTreeNode("source: " + source));
+        return generalnode;
+    }
+
     public String getName() {
         return name;
     }
@@ -87,16 +100,4 @@ public class Reactor {
         this.source = source;
     }
 
-    public MutableTreeNode reactoreNode() {
-        DefaultMutableTreeNode generalnode = new DefaultMutableTreeNode(name);
-        generalnode.add(new DefaultMutableTreeNode("burnup: " + burnup));
-        generalnode.add(new DefaultMutableTreeNode("kpd: " + kpd));
-        generalnode.add(new DefaultMutableTreeNode("enrichment" + enrichment));
-        generalnode.add(new DefaultMutableTreeNode("terminal capacity: " + termal_capacity));
-        generalnode.add(new DefaultMutableTreeNode("electric capacity: " + electrical_capacity));
-        generalnode.add(new DefaultMutableTreeNode("life time: " + life_time));
-        generalnode.add(new DefaultMutableTreeNode("first load: " + first_load));
-        generalnode.add(new DefaultMutableTreeNode("source: " + source));
-        return generalnode;
-    }
 }
