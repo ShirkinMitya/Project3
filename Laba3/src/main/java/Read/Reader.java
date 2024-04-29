@@ -8,5 +8,4 @@ import java.util.List;
 public interface Reader {
 
     public List<Reactor> read(File file) throws IOException;
-
 }

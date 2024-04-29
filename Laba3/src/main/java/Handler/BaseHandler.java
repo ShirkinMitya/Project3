@@ -28,11 +28,9 @@ public abstract class BaseHandler implements Handler {
     @Override
     public List<Reactor> handleRequest(File file) throws IOException, MyException {
         if (next != null) {
-            next.handleRequest(file);
+            return next.handleRequest(file);
         } else {
             throw new MyException("Не подходящий формат файла");
         }
-        return null;
     }
-
 }

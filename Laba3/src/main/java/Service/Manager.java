@@ -23,7 +23,6 @@ public class Manager {
         firstHandler.setNext(secoHandler);
         Handler thirdHandler = new YAMLhandler();
         secoHandler.setNext(thirdHandler);
-
     }
 
     public void read(File file) throws IOException, MyException {   
@@ -41,5 +40,4 @@ public class Manager {
         }
         return mainNode;
     }
-
 }

@@ -2,7 +2,11 @@ package GUI;
 
 import Service.Manager;
 import Service.MyException;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -85,20 +89,25 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonExitActionPerformed
 
     private void ButtonChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonChooseFileActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("task files", "json", "xml", "yaml"));
-        int window = fileChooser.showDialog(this, "Выберете файл");
-        if (window == JFileChooser.APPROVE_OPTION) {
-            try {
+        try {
+            File currentDirectory = new File(getClass().getProtectionDomain().
+                    getCodeSource().getLocation().toURI().getPath()).getParentFile();
+
+            JFileChooser fileChooser = new JFileChooser(currentDirectory);
+            fileChooser.setFileFilter(new FileNameExtensionFilter("task files", "json", "xml", "yaml"));
+            int window = fileChooser.showDialog(this, "Выберете файл");
+            if (window == JFileChooser.APPROVE_OPTION) {
+
                 manager.read(fileChooser.getSelectedFile());
-                TreeStucture.setModel(new DefaultTreeModel(manager.addInfotoGUI()));          
-            } catch (IOException ex) {
-                //ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Не удалось прочитать файл");
-            } catch (MyException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage());
+                TreeStucture.setModel(new DefaultTreeModel(manager.addInfotoGUI()));
             }
+        } catch (IOException | URISyntaxException ex) {
+            //ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Не удалось прочитать файл");
+        } catch (MyException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
+    
     }//GEN-LAST:event_ButtonChooseFileActionPerformed
 
 
