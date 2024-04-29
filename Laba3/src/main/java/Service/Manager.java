@@ -5,6 +5,8 @@ import Handler.JSONhandler;
 import Handler.XMLhandler;
 import Handler.YAMLhandler;
 import Reactor.Reactor;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -16,12 +18,16 @@ public class Manager {
 
     public Manager() {
         this.storage = new Storage();
-        this.firstHandler = new JSONhandler(storage);
-        Handler secoHandler = new XMLhandler(storage);
+        this.firstHandler = new JSONhandler();
+        Handler secoHandler = new XMLhandler();
         firstHandler.setNext(secoHandler);
-        Handler thirdHandler = new YAMLhandler(storage);
+        Handler thirdHandler = new YAMLhandler();
         secoHandler.setNext(thirdHandler);
 
+    }
+
+    public void read(File file) throws IOException, MyException {   
+        storage.getReactors().put(file.getName(), this.firstHandler.handleRequest(file));
     }
 
     public DefaultMutableTreeNode addInfotoGUI() {
@@ -34,10 +40,6 @@ public class Manager {
             mainNode.add(fileNode);
         }
         return mainNode;
-    }
-
-    public Handler getFirstHandler() {
-        return firstHandler;
     }
 
 }

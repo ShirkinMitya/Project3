@@ -1,28 +1,25 @@
 package Handler;
 
+import Reactor.Reactor;
 import Read.XMLreader;
 import Service.MyException;
-import Service.Storage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class XMLhandler extends BaseHandler {
 
-    public XMLhandler(Storage storage) {
-        super(storage);
+    public XMLhandler() {
+        super(".xml");
     }
 
     @Override
-    public void handleRequest(File file) throws IOException, MyException {
-        if (file.getAbsolutePath().endsWith(".xml")) {
-            XMLreader jsonReader = new XMLreader();
-            storage.getReactors().put(file.getName(), jsonReader.read(file));
+    public  List<Reactor> handleRequest(File file) throws IOException, MyException {
+       if (canHandle(file)) {
+            XMLreader xmlReader = new XMLreader();
+            return xmlReader.read(file);
         } else {
-            if (next != null) {
-                next.handleRequest(file);
-            } else {
-                throw new MyException("Не подходящий формат файла");
-            }
+            return super.handleRequest(file);
         }
     }
 }

@@ -1,28 +1,25 @@
 package Handler;
 
+import Reactor.Reactor;
 import Read.JSONreader;
 import Service.MyException;
-import Service.Storage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class JSONhandler extends BaseHandler {
 
-    public JSONhandler(Storage storage) {
-        super(storage);
+    public JSONhandler() {
+        super(".json");
     }
 
     @Override
-    public void handleRequest(File file) throws IOException, MyException {
-        if (file.getAbsolutePath().endsWith(".json")) {
+    public List<Reactor> handleRequest(File file) throws IOException, MyException  {
+        if (canHandle(file)) {
             JSONreader jsonReader = new JSONreader();
-            storage.getReactors().put(file.getName(), jsonReader.read(file));
+            return jsonReader.read(file);
         } else {
-            if (next != null) {
-                next.handleRequest(file);
-            } else {
-                throw new MyException("Не подходящий формат файла");
-            }
+            return super.handleRequest(file);
         }
     }
 }

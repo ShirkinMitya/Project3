@@ -90,10 +90,10 @@ public class GUI extends javax.swing.JFrame {
         int window = fileChooser.showDialog(this, "Выберете файл");
         if (window == JFileChooser.APPROVE_OPTION) {
             try {
-                manager.getFirstHandler().handleRequest(fileChooser.getSelectedFile());
+                manager.read(fileChooser.getSelectedFile());
                 TreeStucture.setModel(new DefaultTreeModel(manager.addInfotoGUI()));          
             } catch (IOException ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Не удалось прочитать файл");
             } catch (MyException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
