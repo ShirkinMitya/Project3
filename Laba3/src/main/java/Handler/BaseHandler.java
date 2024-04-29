@@ -13,7 +13,7 @@ public abstract class BaseHandler implements Handler {
     protected String supportedExtension;
     protected Reader reader;
 
-    public BaseHandler(String supportedExtension, Reader read) {
+    public BaseHandler(String supportedExtension, Reader reader) {
         this.supportedExtension = supportedExtension;
         this.reader = reader;
     }
