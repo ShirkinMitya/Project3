@@ -1,11 +1,11 @@
-package Reactor;
+package ReactorType;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
-public class Reactor {
+public class ReactorType {
 
-    private String name;
+    private String type;
     private Float burnup;
     private Float kpd;
     private Float enrichment;
@@ -16,7 +16,7 @@ public class Reactor {
     private String source;
 
     public MutableTreeNode reactoreNode() {
-        DefaultMutableTreeNode generalnode = new DefaultMutableTreeNode(name);
+        DefaultMutableTreeNode generalnode = new DefaultMutableTreeNode(type);
         generalnode.add(new DefaultMutableTreeNode("burnup: " + burnup));
         generalnode.add(new DefaultMutableTreeNode("kpd: " + kpd));
         generalnode.add(new DefaultMutableTreeNode("enrichment" + enrichment));
@@ -28,8 +28,8 @@ public class Reactor {
         return generalnode;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
     public Float getBurnup() {
@@ -64,8 +64,8 @@ public class Reactor {
         return source;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setBurnup(Float burnup) {

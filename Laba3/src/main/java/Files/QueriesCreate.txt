@@ -1,0 +1,46 @@
+create table public.Regions (
+    ID_region bigint not null,
+    name_region character varying,
+    primary key (ID_region)
+) tablespace pg_default;
+
+create table public.Companies (
+    ID_company bigint not null,
+    company_name character varying,
+    primary key (ID_company)
+) tablespace pg_default;
+
+create table public.Countries (
+    ID_country bigint not null,
+    name_country character varying,
+    ID_region bigint,
+    primary key (ID_country),
+    foreign key (ID_region) references Regions(ID_region) on delete cascade
+) tablespace pg_default;
+
+create table public.Reactors (
+    ID_reactor bigint not null,
+    name character varying,
+    class character varying,
+    model character varying,
+    status character varying,
+    thermal_capacity bigint,
+    first_grid_connection_date date,
+    date_shutdown date,
+    ID_owner bigint,
+    ID_operator bigint,
+    ID_country bigint,
+    primary key (ID_reactor),
+    foreign key (ID_country) references Countries(ID_country) on delete cascade,
+    foreign key (ID_operator) references Companies(ID_company) on delete cascade,
+    foreign key (ID_owner) references Companies(ID_company) on delete cascade
+) tablespace pg_default;
+
+create table public.KIUMs (
+    ID_KIUM bigint not null,
+    kium_value real,
+    year bigint,
+    ID_reactor bigint,
+    primary key (ID_KIUM),
+    foreign key (ID_reactor) references Reactors(ID_reactor) on delete cascade
+) tablespace pg_default;

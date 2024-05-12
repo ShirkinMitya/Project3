@@ -1,0 +1,5 @@
+DROP TABLE public.Reactors CASCADE;
+DROP TABLE public.KIUMs;
+DROP TABLE public.Countries CASCADE;
+DROP TABLE public.Companies CASCADE;
+DROP TABLE public.Regions CASCADE;

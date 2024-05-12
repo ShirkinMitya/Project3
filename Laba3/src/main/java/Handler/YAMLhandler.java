@@ -1,10 +1,10 @@
 package Handler;
 
-import Read.YAMLreader;
+import FileReader.ReaderYAML;
 
 public class YAMLhandler extends BaseHandler {
 
     public YAMLhandler() {
-        super(".yaml", new YAMLreader());
+        super(".yaml", new ReaderYAML());
     }
 }

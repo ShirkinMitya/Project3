@@ -1,13 +1,10 @@
 package Handler;
 
-import Read.JSONreader;
+import FileReader.ReaderJSON;
 
 public class JSONhandler extends BaseHandler {
 
     public JSONhandler() {
-        super(".json", new JSONreader());
+        super(".json", new ReaderJSON());
     }
-
-    // @Override
-    // public List<Reactor> handleRequest(File file) throws IOException, MyException {
 }

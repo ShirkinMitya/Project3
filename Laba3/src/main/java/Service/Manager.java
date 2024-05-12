@@ -1,10 +1,12 @@
 package Service;
 
+import DataBase.DBService;
+import FileReader.ReaderXLSX;
 import Handler.Handler;
 import Handler.JSONhandler;
 import Handler.XMLhandler;
 import Handler.YAMLhandler;
-import Reactor.Reactor;
+import ReactorType.ReactorType;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -15,9 +17,11 @@ public class Manager {
 
     private Storage storage;
     private Handler firstHandler;
+    DBService dbService;
 
     public Manager() {
         this.storage = new Storage();
+        this.dbService = new DBService(storage);
         this.firstHandler = new JSONhandler();
         Handler secoHandler = new XMLhandler();
         firstHandler.setNext(secoHandler);
@@ -25,15 +29,38 @@ public class Manager {
         secoHandler.setNext(thirdHandler);
     }
 
-    public void read(File file) throws IOException, MyException {   
-        storage.getReactors().put(file.getName(), this.firstHandler.handleRequest(file));
+    public void createDB() {
+       dbService.dropDB();
+       System.out.println("OK");
+       dbService.createBD();
+       System.out.println("OK");
+       readXLSX();
+       dbService.writeDB();
+       System.out.println("OK");
+    }
+
+    public void readXLSX() {
+        ReaderXLSX readerxlsx = new ReaderXLSX();
+        try {
+            storage.setCompanyList(readerxlsx.readCompany());
+            storage.setCountryList(readerxlsx.readCountry());
+            storage.setReactorList(readerxlsx.readReactor());
+            storage.setKiumList(readerxlsx.readKium());
+            storage.setRegionList(readerxlsx.readRegion());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void read(File file) throws IOException, MyException {
+        storage.getReactorType().put(file.getName(), this.firstHandler.handleRequest(file));
     }
 
     public DefaultMutableTreeNode addInfotoGUI() {
         DefaultMutableTreeNode mainNode = new DefaultMutableTreeNode("реакторы");
-        for (Entry<String, List<Reactor>> entry : storage.getReactors().entrySet()) {
+        for (Entry<String, List<ReactorType>> entry : storage.getReactorType().entrySet()) {
             DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(entry.getKey());
-            for (Reactor reactor : entry.getValue()) {
+            for (ReactorType reactor : entry.getValue()) {
                 fileNode.add(reactor.reactoreNode());
             }
             mainNode.add(fileNode);

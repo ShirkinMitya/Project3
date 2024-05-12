@@ -1,7 +1,7 @@
 package Handler;
 
-import Reactor.Reactor;
-import Read.Reader;
+import FileReader.Reader;
+import ReactorType.ReactorType;
 import Service.MyException;
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +29,8 @@ public abstract class BaseHandler implements Handler {
     }
 
     @Override
-    public List<Reactor> handleRequest(File file) throws IOException, MyException {
-        if(canHandle(file)){
+    public List<ReactorType> handleRequest(File file) throws IOException, MyException {
+        if (canHandle(file)) {
             return reader.read(file);
         }
         if (next != null) {

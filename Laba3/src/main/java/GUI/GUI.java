@@ -5,8 +5,6 @@ import Service.MyException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -29,6 +27,16 @@ public class GUI extends javax.swing.JFrame {
         ButtonChooseFile = new javax.swing.JButton();
         ScrollPane = new javax.swing.JScrollPane();
         TreeStucture = new javax.swing.JTree();
+        LabelInfoReactors = new javax.swing.JLabel();
+        ButtonCreateDB = new javax.swing.JButton();
+        ButtonCalculationsCountry = new javax.swing.JButton();
+        ButtonCalculationsRegion = new javax.swing.JButton();
+        ButtonCalculationsOwner = new javax.swing.JButton();
+        ButtonCalculationsCountryOperator = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
+        LabelInfoConsumption = new javax.swing.JLabel();
+        LabelConsumption = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,6 +58,60 @@ public class GUI extends javax.swing.JFrame {
         TreeStucture.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         ScrollPane.setViewportView(TreeStucture);
 
+        LabelInfoReactors.setText("Данные о ректорах");
+
+        ButtonCreateDB.setText("Создать БД");
+        ButtonCreateDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCreateDBActionPerformed(evt);
+            }
+        });
+
+        ButtonCalculationsCountry.setText("Расчёт по Странам");
+        ButtonCalculationsCountry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCalculationsCountryActionPerformed(evt);
+            }
+        });
+
+        ButtonCalculationsRegion.setText("Расчёт по регионам");
+        ButtonCalculationsRegion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCalculationsRegionActionPerformed(evt);
+            }
+        });
+
+        ButtonCalculationsOwner.setText("Расчёт по владельцам");
+        ButtonCalculationsOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCalculationsOwnerActionPerformed(evt);
+            }
+        });
+
+        ButtonCalculationsCountryOperator.setText("Расчёт по операторам");
+        ButtonCalculationsCountryOperator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCalculationsCountryOperatorActionPerformed(evt);
+            }
+        });
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Объём ежигодного потребления, т.", "Год"
+            }
+        ));
+        jScrollPane1.setViewportView(Table);
+
+        LabelInfoConsumption.setText("Всего потреблено:");
+
+        LabelConsumption.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -57,28 +119,65 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(96, 96, 96)
+                        .addComponent(LabelInfoReactors)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ButtonExit))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(ButtonChooseFile)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(ButtonChooseFile)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(LabelInfoConsumption, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ButtonCreateDB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(53, 53, 53)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(ButtonCalculationsCountry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(ButtonCalculationsRegion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(ButtonCalculationsOwner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(ButtonCalculationsCountryOperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(LabelConsumption, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ButtonExit)
-                .addGap(2, 2, 2)
-                .addComponent(ButtonChooseFile)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonExit)
+                    .addComponent(LabelInfoReactors))
                 .addGap(18, 18, 18)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabelInfoConsumption, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LabelConsumption, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonCreateDB)
+                    .addComponent(ButtonCalculationsCountry)
+                    .addComponent(ButtonChooseFile))
+                .addGap(18, 18, 18)
+                .addComponent(ButtonCalculationsRegion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonCalculationsOwner)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonCalculationsCountryOperator)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -92,7 +191,6 @@ public class GUI extends javax.swing.JFrame {
         try {
             File currentDirectory = new File(getClass().getProtectionDomain().
                     getCodeSource().getLocation().toURI().getPath()).getParentFile();
-
             JFileChooser fileChooser = new JFileChooser(currentDirectory);
             fileChooser.setFileFilter(new FileNameExtensionFilter("task files", "json", "xml", "yaml"));
             int window = fileChooser.showDialog(this, "Выберете файл");
@@ -107,14 +205,44 @@ public class GUI extends javax.swing.JFrame {
         } catch (MyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-    
+
     }//GEN-LAST:event_ButtonChooseFileActionPerformed
+
+    private void ButtonCreateDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateDBActionPerformed
+        manager.createDB();
+    }//GEN-LAST:event_ButtonCreateDBActionPerformed
+
+    private void ButtonCalculationsCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCalculationsCountryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonCalculationsCountryActionPerformed
+
+    private void ButtonCalculationsRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCalculationsRegionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonCalculationsRegionActionPerformed
+
+    private void ButtonCalculationsOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCalculationsOwnerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonCalculationsOwnerActionPerformed
+
+    private void ButtonCalculationsCountryOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCalculationsCountryOperatorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonCalculationsCountryOperatorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonCalculationsCountry;
+    private javax.swing.JButton ButtonCalculationsCountryOperator;
+    private javax.swing.JButton ButtonCalculationsOwner;
+    private javax.swing.JButton ButtonCalculationsRegion;
     private javax.swing.JButton ButtonChooseFile;
+    private javax.swing.JButton ButtonCreateDB;
     private javax.swing.JButton ButtonExit;
+    private javax.swing.JLabel LabelConsumption;
+    private javax.swing.JLabel LabelInfoConsumption;
+    private javax.swing.JLabel LabelInfoReactors;
     private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JTable Table;
     private javax.swing.JTree TreeStucture;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
