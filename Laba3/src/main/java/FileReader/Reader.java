@@ -1,6 +1,5 @@
 package FileReader;
 
-
 import ReactorType.ReactorType;
 import java.io.File;
 import java.io.IOException;

@@ -20,6 +20,14 @@ public class Storage {
     private List<Kium> kiumList = new ArrayList<>();
     private Map<String, List<ReactorType>> reactorType = new HashMap<>();
 
+    public void clearAllLists() {
+        companyList.clear();
+        regionList.clear();
+        countryList.clear();
+        reactorList.clear();
+        kiumList.clear();
+    }
+
     public List<Company> getCompanyList() {
         return companyList;
     }
@@ -67,7 +75,4 @@ public class Storage {
     public void setReactorType(Map<String, List<ReactorType>> reactorType) {
         this.reactorType = reactorType;
     }
-    
 }
-
-    

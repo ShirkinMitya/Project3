@@ -47,8 +47,9 @@
                           <Component id="jScrollPane1" min="-2" pref="535" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="LabelInfoConsumption" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="ButtonCreateDB" alignment="0" pref="129" max="32767" attributes="0"/>
+                                  <Component id="LabelInfoConsumption" alignment="0" pref="135" max="32767" attributes="0"/>
+                                  <Component id="ButtonCreateDB" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="ButtonUploadDB" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
@@ -98,7 +99,10 @@
                   <Component id="ButtonChooseFile" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="ButtonCalculationsRegion" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="ButtonCalculationsRegion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ButtonUploadDB" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="ButtonCalculationsOwner" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -237,6 +241,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel3"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ButtonUploadDB">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x412;&#x44b;&#x433;&#x440;&#x443;&#x437;&#x438;&#x442;&#x44c; &#x411;&#x414;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonUploadDBActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

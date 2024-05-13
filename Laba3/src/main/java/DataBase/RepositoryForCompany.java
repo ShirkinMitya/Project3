@@ -2,6 +2,7 @@ package DataBase;
 
 import Objects.Company;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RepositoryForCompany extends Repository<Company> {
@@ -16,5 +17,18 @@ public class RepositoryForCompany extends Repository<Company> {
         statement.setInt(1, company.getCompany_id());
         statement.setString(2, company.getCompany_name());
 
+    }
+
+    @Override
+    protected String getSelectSQL() {
+        return "SELECT ID_company, company_name FROM Companies";
+    }
+
+    @Override
+    protected Company getSelectObject(ResultSet resultSet) throws SQLException {
+        Company company = new Company();
+        company.setCompany_id(resultSet.getInt(1));
+        company.setCompany_name(resultSet.getString(2));
+        return company;
     }
 }

@@ -15,7 +15,8 @@ public class Reactor {
     private Integer country_id;
     private Integer owner_id;
     private Integer operator_id;
-    
+    private Float burnup;
+    private Float first_load;
 
     public Integer getId() {
         return id;
@@ -103,6 +104,27 @@ public class Reactor {
 
     public void setOperator_id(Integer operator_id) {
         this.operator_id = operator_id;
+    }
+
+    public Float getBurnup() {
+        return burnup;
+    }
+
+    public void setBurnup(Float burnup) {
+        this.burnup = burnup;
+    }
+
+    public Float getFirst_load() {
+        return first_load;
+    }
+
+    public void setFirst_load(Float first_load) {
+        this.first_load = first_load;
+    }
+
+    @Override
+    public String toString() {
+        return "Reactor{" + "id=" + id + ", name=" + name + ", clas=" + clas + ", model=" + model + ", status=" + status + ", termal_capacity=" + termal_capacity + ", first_grid_connection=" + first_grid_connection + ", date_shutdown=" + date_shutdown + ", country_id=" + country_id + ", owner_id=" + owner_id + ", operator_id=" + operator_id + ", burnup=" + burnup + ", first_load=" + first_load + '}';
     }
 
 }

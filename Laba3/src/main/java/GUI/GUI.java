@@ -37,6 +37,7 @@ public class GUI extends javax.swing.JFrame {
         Table = new javax.swing.JTable();
         LabelInfoConsumption = new javax.swing.JLabel();
         LabelConsumption = new javax.swing.JLabel();
+        ButtonUploadDB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +113,13 @@ public class GUI extends javax.swing.JFrame {
 
         LabelConsumption.setText("jLabel3");
 
+        ButtonUploadDB.setText("Выгрузить БД");
+        ButtonUploadDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUploadDBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,8 +144,9 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(LabelInfoConsumption, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ButtonCreateDB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                                    .addComponent(LabelInfoConsumption, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                    .addComponent(ButtonCreateDB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ButtonUploadDB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(53, 53, 53)
@@ -172,7 +181,9 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(ButtonCalculationsCountry)
                     .addComponent(ButtonChooseFile))
                 .addGap(18, 18, 18)
-                .addComponent(ButtonCalculationsRegion)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonCalculationsRegion)
+                    .addComponent(ButtonUploadDB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ButtonCalculationsOwner)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -196,7 +207,7 @@ public class GUI extends javax.swing.JFrame {
             int window = fileChooser.showDialog(this, "Выберете файл");
             if (window == JFileChooser.APPROVE_OPTION) {
 
-                manager.read(fileChooser.getSelectedFile());
+                manager.readFile(fileChooser.getSelectedFile());
                 TreeStucture.setModel(new DefaultTreeModel(manager.addInfotoGUI()));
             }
         } catch (IOException | URISyntaxException ex) {
@@ -228,6 +239,10 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonCalculationsCountryOperatorActionPerformed
 
+    private void ButtonUploadDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUploadDBActionPerformed
+        manager.uploadDB();
+    }//GEN-LAST:event_ButtonUploadDBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCalculationsCountry;
@@ -237,6 +252,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton ButtonChooseFile;
     private javax.swing.JButton ButtonCreateDB;
     private javax.swing.JButton ButtonExit;
+    private javax.swing.JButton ButtonUploadDB;
     private javax.swing.JLabel LabelConsumption;
     private javax.swing.JLabel LabelInfoConsumption;
     private javax.swing.JLabel LabelInfoReactors;

@@ -1,5 +1,6 @@
 package Service;
 
+import Calculations.ReactrorUnification;
 import DataBase.DBService;
 import FileReader.ReaderXLSX;
 import Handler.Handler;
@@ -30,13 +31,20 @@ public class Manager {
     }
 
     public void createDB() {
-       dbService.dropDB();
-       System.out.println("OK");
-       dbService.createBD();
-       System.out.println("OK");
-       readXLSX();
-       dbService.writeDB();
-       System.out.println("OK");
+        dbService.dropDB();
+        System.out.println("OK");
+        dbService.createBD();
+        System.out.println("OK");
+        readXLSX();
+        dbService.writeDB();
+        System.out.println("OK");
+    }
+
+    public void uploadDB() {
+        dbService.selectDB();
+        System.out.println("OK");
+        new ReactrorUnification().unification(storage);
+        storage.getReactorList().forEach(rector -> System.out.println(rector));
     }
 
     public void readXLSX() {
@@ -52,8 +60,9 @@ public class Manager {
         }
     }
 
-    public void read(File file) throws IOException, MyException {
+    public void readFile(File file) throws IOException, MyException {
         storage.getReactorType().put(file.getName(), this.firstHandler.handleRequest(file));
+        new ReactrorUnification().unification(storage);
     }
 
     public DefaultMutableTreeNode addInfotoGUI() {
