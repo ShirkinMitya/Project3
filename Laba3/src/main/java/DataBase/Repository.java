@@ -32,7 +32,7 @@ public abstract class Repository<T> {
             connection.commit();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Oшибка при добавлении данных в БД" + e.getMessage());
             if (connection != null) {
                 connection.rollback();
             }
@@ -57,7 +57,7 @@ public abstract class Repository<T> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Oшибка при загрузке данных в БД" + e.getMessage());
             if (connection != null) {
                 connection.rollback();
             }

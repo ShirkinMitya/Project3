@@ -12,7 +12,7 @@ public class ConsumptionOneReactor {
     public void calculateConsumption(List<Reactor> reactorList, List<Kium> kiumList) {
         for (Reactor reactor : reactorList) {
             if (reactor.getStatus().equals("Operational")) {
-                calculateConsumptionAllYears(reactor, kiumList, null);
+                calculateConsumptionAllYears(reactor, kiumList, 2024);
             } else if (reactor.getStatus().equals("Suspended Operation")
                     || reactor.getStatus().equals("Permanent Shutdown")) {
                 Calendar calendar = Calendar.getInstance();
@@ -24,9 +24,6 @@ public class ConsumptionOneReactor {
     }
 
     private void calculateConsumptionAllYears(Reactor reactor, List<Kium> kiumList, Integer endYear) {
-        if (endYear == null) {
-            endYear = 2024;
-        }
         Map<Integer, Float> consumptionPerYear = new HashMap<>();
         int startYear = 2014;
         Calendar calendar = Calendar.getInstance();
@@ -37,7 +34,6 @@ public class ConsumptionOneReactor {
             consumptionPerYear.put(startYear, reactor.getFirst_load());
             startYear += 1;
         }
-        List<Kium> sortedKiumList = kiumList.stream().filter(x -> x.getReactor_id() == reactor.getId()).toList();
         for (int year = startYear; year <= endYear; year++) {
             float consumption = reactor.getTermal_capacity() / reactor.getBurnup() * getKiumValueForYear(reactor.getId(), year, kiumList);
             consumptionPerYear.put(year, consumption);

@@ -5,6 +5,7 @@ import Service.MyException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -173,9 +174,8 @@ public class GUI extends javax.swing.JFrame {
 
     private void ButtonChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonChooseFileActionPerformed
         try {
-           // File file = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile();
-            //JFileChooser fileChooser = new JFileChooser(file);
-            JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+            File file = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile();
+            JFileChooser fileChooser = new JFileChooser(file);
             fileChooser.setFileFilter(new FileNameExtensionFilter("task files", "json", "xml", "yaml"));
             int window = fileChooser.showDialog(this, "Выберете файл");
             if (window == JFileChooser.APPROVE_OPTION) {
@@ -183,8 +183,7 @@ public class GUI extends javax.swing.JFrame {
                 manager.readFile(fileChooser.getSelectedFile());
                 TreeStucture.setModel(new DefaultTreeModel(manager.addTreeToGUI()));
             }
-       // } catch (IOException | URISyntaxException ex) {
-       } catch (IOException e) {
+        } catch (IOException | URISyntaxException ex) {
             JOptionPane.showMessageDialog(this, "Не удалось прочитать файл");
         } catch (MyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -192,28 +191,48 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonChooseFileActionPerformed
 
     private void ButtonCreateDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCreateDBActionPerformed
-        manager.createDB();
+        try {
+            manager.createDB();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Oшибка при создании БД");
+        }
         JOptionPane.showMessageDialog(this, "БД создана");
     }//GEN-LAST:event_ButtonCreateDBActionPerformed
 
     private void ButtonCalculateCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCalculateCountryActionPerformed
+        if (!manager.isReadyForCalculations()) {
+            JOptionPane.showMessageDialog(this, "Сначала загрузите файл и выгрузите БД");
+            return;
+        }
         manager.calculateConsumptionForReactor();
         Table.setModel(manager.addTableCountriesToGui());
     }//GEN-LAST:event_ButtonCalculateCountryActionPerformed
 
     private void ButtonCalculateRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCalculateRegionActionPerformed
+        if (!manager.isReadyForCalculations()) {
+            JOptionPane.showMessageDialog(this, "Сначала загрузите файл и выгрузите БД");
+            return;
+        }
         manager.calculateConsumptionForReactor();
-        Table.setModel(manager.addTableOperatorsToGui());
+        Table.setModel(manager.addTableRegionsToGui());
     }//GEN-LAST:event_ButtonCalculateRegionActionPerformed
 
     private void ButtonCalculateOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCalculateOperatorActionPerformed
+        if (!manager.isReadyForCalculations()) {
+            JOptionPane.showMessageDialog(this, "Сначала загрузите файл и выгрузите БД");
+            return;
+        }
         manager.calculateConsumptionForReactor();
-        Table.setModel(manager.addTableCompanyesToGui());
+        Table.setModel(manager.addTableOperatorsToGui());
     }//GEN-LAST:event_ButtonCalculateOperatorActionPerformed
 
     private void ButtonUploadDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUploadDBActionPerformed
-        manager.uploadDB();
-         JOptionPane.showMessageDialog(this, "БД выгружена");
+        try {
+            manager.uploadDB();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Ошибка при выгрузке БД");
+        }
+        JOptionPane.showMessageDialog(this, "БД выгружена");
     }//GEN-LAST:event_ButtonUploadDBActionPerformed
 
 

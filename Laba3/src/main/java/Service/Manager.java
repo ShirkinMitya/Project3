@@ -12,6 +12,7 @@ import Handler.YAMLhandler;
 import ReactorType.ReactorType;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map.Entry;
 import javax.swing.table.DefaultTableModel;
@@ -33,14 +34,18 @@ public class Manager {
         secoHandler.setNext(thirdHandler);
     }
 
-    public void createDB() {
+    public boolean isReadyForCalculations() {
+        return !storage.getReactorTypeList().isEmpty() && !storage.getReactorList().isEmpty();
+    }
+
+    public void createDB() throws SQLException {
         dbService.dropDB();
         dbService.createBD();
         readXLSX();
         dbService.writeDB();
     }
 
-    public void uploadDB() {
+    public void uploadDB() throws SQLException {
         dbService.selectDB();
     }
 
@@ -53,7 +58,7 @@ public class Manager {
             storage.setKiumList(readerxlsx.readKium());
             storage.setRegionList(readerxlsx.readRegion());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Oшибка при чтениии EXCEL" + e.getMessage());
         }
     }
 
@@ -70,8 +75,8 @@ public class Manager {
         return new Aggregation().countiesAggregation(storage);
     }
 
-    public DefaultTableModel addTableCompanyesToGui() {
-        return new Aggregation().operatorAggregation(storage);
+    public DefaultTableModel addTableRegionsToGui() {
+        return new Aggregation().regionsAggregation(storage);
     }
 
     public DefaultTableModel addTableOperatorsToGui() {

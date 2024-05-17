@@ -20,7 +20,7 @@ public class ReactrorUnification {
     public void unification(Storage storage) {
         List<ReactorType> listReactorType = null;
         try {
-            listReactorType = storage.getReactorTypeList().entrySet().iterator().next().getValue();
+            listReactorType = storage.getReactorTypeList().entrySet().iterator().next().getValue();//?
         } catch (NoSuchElementException e) {
             return;
         }
@@ -34,7 +34,7 @@ public class ReactrorUnification {
                     if (reactorsFile.getType().equals(reactorFileclass)) {
                         reactorsDB.setBurnup(reactorsFile.getBurnup());
                         reactorsDB.setFirst_load(reactorsFile.getFirst_load());
-                        break;
+                        break;//?
                     }
                 }
             }

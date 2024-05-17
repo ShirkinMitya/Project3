@@ -3,6 +3,7 @@ package Calculations;
 import Objects.Company;
 import Objects.Country;
 import Objects.Reactor;
+import Objects.Region;
 import Service.Storage;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,18 +34,18 @@ public class Aggregation {
                     }
                 }
             }
-            for (ConsumptionForAggregation consumptionPerYear : consumptionEndList) {
+            for (ConsumptionForAggregation consumptionForAggregation : consumptionEndList) {
                 Object[] row = new Object[3];
-                row[0] = consumptionPerYear.getKey();
-                row[1] = consumptionPerYear.getKiumValue();
-                row[2] = consumptionPerYear.getYear();
+                row[0] = consumptionForAggregation.getKey();
+                row[1] = consumptionForAggregation.getKiumValue();
+                row[2] = consumptionForAggregation.getYear();
                 data.add(row);
             }
         }
         Object[][] object = data.toArray(new Object[0][]);
         return new DefaultTableModel(object, nameColums);
     }
-    
+
     public DefaultTableModel operatorAggregation(Storage storage) {
         Object[] nameColums = {"Oператор", "Объём ежигодного потребления,т.", "Год"};
         List<Object[]> data = new ArrayList<>();
@@ -64,47 +65,52 @@ public class Aggregation {
                     }
                 }
             }
-            for (ConsumptionForAggregation consumptionPerYear : consumptionEndList) {
+            for (ConsumptionForAggregation consumptionForAggregation : consumptionEndList) {
                 Object[] row = new Object[3];
-                row[0] = consumptionPerYear.getKey();
-                row[1] = consumptionPerYear.getKiumValue();
-                row[2] = consumptionPerYear.getYear();
+                row[0] = consumptionForAggregation.getKey();
+                row[1] = consumptionForAggregation.getKiumValue();
+                row[2] = consumptionForAggregation.getYear();
                 data.add(row);
             }
         }
         Object[][] object = data.toArray(new Object[0][]);
         return new DefaultTableModel(object, nameColums);
     }
-    
-     public DefaultTableModel regionsAggregation(Storage storage) {
+
+    public DefaultTableModel regionsAggregation(Storage storage) {
         Object[] nameColums = {"Регионы", "Объём ежигодного потребления,т.", "Год"};
         List<Object[]> data = new ArrayList<>();
+        List<ConsumptionForAggregation> consumptionEndList = new ArrayList<>();
         for (Country country : storage.getCountryList()) {
-            List<ConsumptionForAggregation> consumptionEndList = new ArrayList<>();
+            Region region = storage.getRegionList().stream().filter(t -> t.getRegion_id().equals(country.getRegion_id())).findFirst().orElse(null);
             for (Reactor reactor : storage.getReactorList()) {
                 if (Objects.equals(reactor.getCountry_id(), country.getCountry_id())) {
                     TreeMap<Integer, Float> sortMap = new TreeMap<>(reactor.getConsuptionPerYear());
                     for (Entry<Integer, Float> entry : sortMap.entrySet()) {
-                        Optional<ConsumptionForAggregation> consumptionForAggregation = consumptionEndList.stream().filter(t -> entry.getKey().equals(t.getYear())).findFirst();
+                        Optional<ConsumptionForAggregation> consumptionForAggregation
+                                = consumptionEndList.stream().filter(t -> t.getKey()
+                                .equals(region.getRegion_name())
+                                && entry.getKey().equals(t.getYear())).findFirst();
                         if (consumptionForAggregation.isPresent()) {
                             consumptionForAggregation.get().plus(entry.getValue());
                         } else {
-                            ConsumptionForAggregation consumptionforAggregation = new ConsumptionForAggregation(country.getCountry_name(), entry.getValue(), entry.getKey());
+                            ConsumptionForAggregation consumptionforAggregation
+                                    = new ConsumptionForAggregation(region.getRegion_name(), entry.getValue(), entry.getKey());
                             consumptionEndList.add(consumptionforAggregation);
                         }
                     }
                 }
             }
-            for (ConsumptionForAggregation consumptionPerYear : consumptionEndList) {
-                Object[] row = new Object[3];
-                row[0] = consumptionPerYear.getKey();
-                row[1] = consumptionPerYear.getKiumValue();
-                row[2] = consumptionPerYear.getYear();
-                data.add(row);
-            }
+        }
+        for (ConsumptionForAggregation consumptionPerYear : consumptionEndList) {
+            Object[] row = new Object[3];
+            row[0] = consumptionPerYear.getKey();
+            row[1] = consumptionPerYear.getKiumValue();
+            row[2] = consumptionPerYear.getYear();
+            data.add(row);
         }
         Object[][] object = data.toArray(new Object[0][]);
         return new DefaultTableModel(object, nameColums);
     }
-   
+
 }
