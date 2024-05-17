@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class DBService {
 
-    String fileNameDrop = "src/main/java/Files/QueriesDrop.txt";
-    String fileNameCreate = "src/main/java/Files/QueriesCreate.txt";
+    String fileNameDrop = "MyFiles/QueriesDrop.txt";
+    String fileNameCreate = "MyFiles/QueriesCreate.txt";
     Storage storage;
     RepositoryForRegion repositoryForRegion = new RepositoryForRegion();
     RepositoryForCompany repositoryForCompany = new RepositoryForCompany();
@@ -21,22 +21,22 @@ public class DBService {
     }
 
     public void dropDB() {
+        ReaderTXT txtReader = new ReaderTXT();
+        RepositoryManipulationDB repository = new RepositoryManipulationDB();
         try {
-            ReaderTXT txtReader = new ReaderTXT();
-            RepositoryManipulationDB repository = new RepositoryManipulationDB();
             repository.execute(txtReader.read(fileNameDrop));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
     public void createBD() {
+        ReaderTXT txtReader = new ReaderTXT();
+        RepositoryManipulationDB repository = new RepositoryManipulationDB();
         try {
-            ReaderTXT txtReader = new ReaderTXT();
-            RepositoryManipulationDB repository = new RepositoryManipulationDB();
             repository.execute(txtReader.read(fileNameCreate));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -60,9 +60,6 @@ public class DBService {
             storage.setCountryList(repositoryForCountry.select());
             storage.setReactorList(repositoryForReactor.select());
             storage.setKiumList(repositoryForKium.select());
-            storage.getReactorList().forEach(reactor -> System.out.println(reactor));
-            System.out.println("реакторы" + storage.getReactorList().size());
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

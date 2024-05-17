@@ -5,9 +5,9 @@ import Objects.Country;
 import Objects.Kium;
 import Objects.Reactor;
 import Objects.Region;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,11 +18,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReaderXLSX {
 
-    String fileName = "src/main/java/Files/DataNew.xlsx";
+    String fileName = "MyFiles/DataNew2.xlsx";
 
     public List<Reactor> readReactor() throws FileNotFoundException, IOException {
         List<Reactor> reactorList = new ArrayList<>();
-        XSSFWorkbook myBook = new XSSFWorkbook(new FileInputStream(fileName));
+        ClassLoader classLoader = ReaderXLSX.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        XSSFWorkbook myBook = new XSSFWorkbook(inputStream);
         XSSFSheet sheet = myBook.getSheet("reactors");
         Iterator<Row> rowIterator = sheet.iterator();
         rowIterator.next();
@@ -50,7 +52,9 @@ public class ReaderXLSX {
 
     public List<Kium> readKium() throws FileNotFoundException, IOException {
         List<Kium> kiumList = new ArrayList<>();
-        XSSFWorkbook myBook = new XSSFWorkbook(new FileInputStream(fileName));
+        ClassLoader classLoader = ReaderXLSX.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        XSSFWorkbook myBook = new XSSFWorkbook(inputStream);
         XSSFSheet sheet = myBook.getSheet("kium");
         Iterator<Row> rowIterator = sheet.iterator();
         rowIterator.next();
@@ -68,7 +72,9 @@ public class ReaderXLSX {
 
     public List<Company> readCompany() throws FileNotFoundException, IOException {
         List<Company> companyList = new ArrayList<>();
-        XSSFWorkbook myBook = new XSSFWorkbook(new FileInputStream(fileName));
+        ClassLoader classLoader = ReaderXLSX.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        XSSFWorkbook myBook = new XSSFWorkbook(inputStream);
         XSSFSheet sheet = myBook.getSheet("companies");
         Iterator<Row> rowIterator = sheet.iterator();
         rowIterator.next();
@@ -84,7 +90,9 @@ public class ReaderXLSX {
 
     public List<Country> readCountry() throws FileNotFoundException, IOException {
         List<Country> countryList = new ArrayList<>();
-        XSSFWorkbook myBook = new XSSFWorkbook(new FileInputStream(fileName));
+        ClassLoader classLoader = ReaderXLSX.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        XSSFWorkbook myBook = new XSSFWorkbook(inputStream);
         XSSFSheet sheet = myBook.getSheet("countries");
         Iterator<Row> rowIterator = sheet.iterator();
         rowIterator.next();
@@ -101,7 +109,9 @@ public class ReaderXLSX {
 
     public List<Region> readRegion() throws FileNotFoundException, IOException {
         List<Region> regionList = new ArrayList<>();
-        XSSFWorkbook myBook = new XSSFWorkbook(new FileInputStream(fileName));
+        ClassLoader classLoader = ReaderXLSX.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        XSSFWorkbook myBook = new XSSFWorkbook(inputStream);
         XSSFSheet sheet = myBook.getSheet("regions");
         Iterator<Row> rowIterator = sheet.iterator();
         rowIterator.next();
@@ -114,4 +124,5 @@ public class ReaderXLSX {
         }
         return regionList;
     }
+
 }

@@ -1,6 +1,8 @@
 package Objects;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Reactor {
 
@@ -17,6 +19,7 @@ public class Reactor {
     private Integer operator_id;
     private Float burnup;
     private Float first_load;
+    private Map<Integer, Float> consuptionPerYear = new HashMap<>();
 
     public Integer getId() {
         return id;
@@ -122,9 +125,11 @@ public class Reactor {
         this.first_load = first_load;
     }
 
-    @Override
-    public String toString() {
-        return "Reactor{" + "id=" + id + ", name=" + name + ", clas=" + clas + ", model=" + model + ", status=" + status + ", termal_capacity=" + termal_capacity + ", first_grid_connection=" + first_grid_connection + ", date_shutdown=" + date_shutdown + ", country_id=" + country_id + ", owner_id=" + owner_id + ", operator_id=" + operator_id + ", burnup=" + burnup + ", first_load=" + first_load + '}';
+    public Map<Integer, Float> getConsuptionPerYear() {
+        return consuptionPerYear;
     }
 
+    public void setConsuptionPerYear(Map<Integer, Float> consuptionPerYear) {
+        this.consuptionPerYear = consuptionPerYear;
+    }
 }

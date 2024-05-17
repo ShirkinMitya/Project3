@@ -16,7 +16,6 @@ public class RepositoryForCompany extends Repository<Company> {
     protected void setInsertParameters(PreparedStatement statement, Company company) throws SQLException {
         statement.setInt(1, company.getCompany_id());
         statement.setString(2, company.getCompany_name());
-
     }
 
     @Override

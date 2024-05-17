@@ -18,7 +18,7 @@ public class Storage {
     private List<Country> countryList = new ArrayList<>();
     private List<Reactor> reactorList = new ArrayList<>();
     private List<Kium> kiumList = new ArrayList<>();
-    private Map<String, List<ReactorType>> reactorType = new HashMap<>();
+    private Map<String, List<ReactorType>> reactorTypeList = new HashMap<>();
 
     public void clearAllLists() {
         companyList.clear();
@@ -68,11 +68,11 @@ public class Storage {
         this.kiumList = kiumList;
     }
 
-    public Map<String, List<ReactorType>> getReactorType() {
-        return reactorType;
+    public Map<String, List<ReactorType>> getReactorTypeList() {
+        return reactorTypeList;
     }
 
-    public void setReactorType(Map<String, List<ReactorType>> reactorType) {
-        this.reactorType = reactorType;
+    public void setReactorTypeList(Map<String, List<ReactorType>> reactorTypeList) {
+        this.reactorTypeList = reactorTypeList;
     }
 }

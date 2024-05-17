@@ -1,5 +1,7 @@
 package Service;
 
+import Calculations.Aggregation;
+import Calculations.ConsumptionOneReactor;
 import Calculations.ReactrorUnification;
 import DataBase.DBService;
 import FileReader.ReaderXLSX;
@@ -12,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class Manager {
@@ -32,19 +35,13 @@ public class Manager {
 
     public void createDB() {
         dbService.dropDB();
-        System.out.println("OK");
         dbService.createBD();
-        System.out.println("OK");
         readXLSX();
         dbService.writeDB();
-        System.out.println("OK");
     }
 
     public void uploadDB() {
         dbService.selectDB();
-        System.out.println("OK");
-        new ReactrorUnification().unification(storage);
-        storage.getReactorList().forEach(rector -> System.out.println(rector));
     }
 
     public void readXLSX() {
@@ -61,13 +58,29 @@ public class Manager {
     }
 
     public void readFile(File file) throws IOException, MyException {
-        storage.getReactorType().put(file.getName(), this.firstHandler.handleRequest(file));
-        new ReactrorUnification().unification(storage);
+        storage.getReactorTypeList().put(file.getName(), this.firstHandler.handleRequest(file));
     }
 
-    public DefaultMutableTreeNode addInfotoGUI() {
+    public void calculateConsumptionForReactor() {
+        new ReactrorUnification().unification(storage);
+        new ConsumptionOneReactor().calculateConsumption(storage.getReactorList(), storage.getKiumList());
+    }
+
+    public DefaultTableModel addTableCountriesToGui() {
+        return new Aggregation().countiesAggregation(storage);
+    }
+
+    public DefaultTableModel addTableCompanyesToGui() {
+        return new Aggregation().operatorAggregation(storage);
+    }
+
+    public DefaultTableModel addTableOperatorsToGui() {
+        return new Aggregation().operatorAggregation(storage);
+    }
+
+    public DefaultMutableTreeNode addTreeToGUI() {
         DefaultMutableTreeNode mainNode = new DefaultMutableTreeNode("реакторы");
-        for (Entry<String, List<ReactorType>> entry : storage.getReactorType().entrySet()) {
+        for (Entry<String, List<ReactorType>> entry : storage.getReactorTypeList().entrySet()) {
             DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(entry.getKey());
             for (ReactorType reactor : entry.getValue()) {
                 fileNode.add(reactor.reactoreNode());

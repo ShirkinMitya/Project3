@@ -6,6 +6,7 @@ import Service.Storage;
 import java.util.List;
 import java.util.Map;
 import static java.util.Map.entry;
+import java.util.NoSuchElementException;
 
 public class ReactrorUnification {
 
@@ -13,17 +14,21 @@ public class ReactrorUnification {
             entry("PWR", "PWR"),
             entry("BWR", "BWR"),
             entry("LWGR", "RBMK"),
-            entry("GCR", "MANGOX"),
+            entry("GCR", "MAGNOX"),
             entry("FBR", "BN"));
 
     public void unification(Storage storage) {
-        List<ReactorType> listReactorType = storage.getReactorType().entrySet().iterator().next().getValue();
+        List<ReactorType> listReactorType = null;
+        try {
+            listReactorType = storage.getReactorTypeList().entrySet().iterator().next().getValue();
+        } catch (NoSuchElementException e) {
+            return;
+        }
         if (listReactorType == null) {
             return;
         }
         for (Reactor reactorsDB : storage.getReactorList()) {
             String reactorFileclass = classes.get(reactorsDB.getClas());
-            System.out.println(reactorFileclass);
             if (reactorFileclass != null) {
                 for (ReactorType reactorsFile : listReactorType) {
                     if (reactorsFile.getType().equals(reactorFileclass)) {
@@ -35,5 +40,4 @@ public class ReactrorUnification {
             }
         }
     }
-
 }
