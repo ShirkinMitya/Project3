@@ -35,7 +35,7 @@ public class Manager {
     }
 
     public boolean isReadyForCalculations() {
-        return !storage.getReactorTypeList().isEmpty() && !storage.getReactorList().isEmpty();
+        return !storage.getReactorTypeMap().isEmpty() && !storage.getReactorList().isEmpty();
     }
 
     public void createDB() throws SQLException {
@@ -63,7 +63,7 @@ public class Manager {
     }
 
     public void readFile(File file) throws IOException, MyException {
-        storage.getReactorTypeList().put(file.getName(), this.firstHandler.handleRequest(file));
+        storage.getReactorTypeMap().put(file.getName(), this.firstHandler.handleRequest(file));
     }
 
     public void calculateConsumptionForReactor() {
@@ -85,7 +85,7 @@ public class Manager {
 
     public DefaultMutableTreeNode addTreeToGUI() {
         DefaultMutableTreeNode mainNode = new DefaultMutableTreeNode("реакторы");
-        for (Entry<String, List<ReactorType>> entry : storage.getReactorTypeList().entrySet()) {
+        for (Entry<String, List<ReactorType>> entry : storage.getReactorTypeMap().entrySet()) {
             DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(entry.getKey());
             for (ReactorType reactor : entry.getValue()) {
                 fileNode.add(reactor.reactoreNode());

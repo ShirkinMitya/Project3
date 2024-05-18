@@ -14,7 +14,7 @@ public class DatabaseConnection {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Не найден класс драйвера" + e.getMessage());
         }
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
